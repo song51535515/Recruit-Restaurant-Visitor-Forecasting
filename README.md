@@ -7,6 +7,7 @@ This project implements an ensemble solution (LightGBM + CatBoost) for the [Recr
 
 ### 1st solution (Original File)
 **public:0.471, private:0.505**
+
 https://www.kaggle.com/code/plantsgo/solution-public-0-471-private-0-505
 -   Uses `air_visit_data` as the core signal.
     
@@ -66,9 +67,10 @@ Required packages:
 
 All dependencies are available by default in Kaggle Notebooks.
 ## 📁Dataset
-This project targets the Kaggle competition  
-**Recruit Restaurant Visitor Forecasting**.
+This project targets the Kaggle competition **Recruit Restaurant Visitor Forecasting**.
+
 https://www.kaggle.com/competitions/recruit-restaurant-visitor-forecasting/data
+
 Required files (CSV or CSV.ZIP):
 
 -   `air_visit_data`
@@ -294,7 +296,7 @@ out_name = (
 -   No accidental overwrites
     
 -   Easier experiment tracking
-## 📝6 Notice
+## 📝 Notice
 -   The feature engineering process requires a large amount of computation, and it is recommended to run it on a machine with at least 16GB of memory.
 
 -   Hyperparameters such as increasing the number of rounds, learning rate, and ensemble weights can be further optimized to achieve better performance.
