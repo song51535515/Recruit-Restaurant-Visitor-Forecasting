@@ -1,6 +1,6 @@
 # Recruit Restaurant Visitor Forecasting - LGBM + CatBoost Ensemble
 
-This project implements an ensemble solution (LightGBM + CatBoost) for the [Recruit Restaurant Visitor Forecasting](https://www.kaggle.com/c/recruit-restaurant-visitor-forecasting) Kaggle competition, leveraging the 1st place feature engineering strategy with log-space ensemble to predict restaurant visitor counts.
+This project implements an ensemble solution (LightGBM + CatBoost) for the [Recruit Restaurant Visitor Forecasting](https://www.kaggle.com/c/recruit-restaurant-visitor-forecasting) Kaggle competition, leveraging the 1st place feature engineering strategy as baseline to predict restaurant visitor counts.
 
 
 ## 📋Project Overview
