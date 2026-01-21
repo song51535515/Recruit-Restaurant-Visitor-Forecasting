@@ -4,7 +4,7 @@ This project implements an ensemble solution (LightGBM + CatBoost) for the [Recr
 
 ## 📋Project Overview
 ### 1st solution ([Original File](https://www.kaggle.com/code/plantsgo/solution-public-0-471-private-0-505))
-The performance is evaluated using the root mean squared logarithmic error (RMSLE), achieving **0.471** on the public leaderboard and **0.505** on the private leaderboard (The Kaggle competition has ended, and this is the score obtained after reproducing and submitting Kaggle in one's own environment).
+The performance is evaluated using the root mean squared logarithmic error (RMSLE), achieving **0.471** on the public leaderboard and **0.505** on the private leaderboard (The Kaggle competition has ended, and this is the score obtained after reproducing and submitting Kaggle in my own environment).
 
 - Use `air_visit_data` as the core signal.
 
