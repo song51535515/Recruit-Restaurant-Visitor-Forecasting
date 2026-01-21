@@ -32,7 +32,7 @@ This version is designed to be **engineering-friendly, extensible, and competiti
 
 - Train two different tree models: **LightGBM** and **CatBoost**.
 
-- Perform **log-space weighted ensembling**(with LightGBM for 0.65 and CatBoost for 0.35).
+- Perform **log-space weighted ensembling**, assigning weights of 0.65 to LightGBM and 0.35 to CatBoost.
 
 - Produces timestamped submission files.
 
@@ -79,10 +79,6 @@ Required files (CSV or CSV.ZIP):
 -  `sample_submission`
 
 ## 🚀 Usage
-
-  
-  
-
 **1. Download the file**
 
 Download the file and upload it to Kaggle.
@@ -104,6 +100,7 @@ The script generates a timestamped submission file (e.g., `submission_lgb_cb_ens
 ## 🔧Key Differences Between catboost-lbsm and 1st solution
 
 ## 1. Data Loading
+
 *Hard-coded paths → Automatic dataset discovery*
 
 ### 1st solution (Before)
@@ -119,6 +116,7 @@ hpg_reserve = pd.read_csv("../input/hpg_reserve.csv")
 - Break easily across environments.
 
 ### catboost-lbsm (After)
+
 ```python
 def find_dataset_dir():
 required =  [
@@ -142,7 +140,6 @@ cands = glob.glob(os.path.join(data_path, prefix +  ".*"))
 
 return cands_sorted[0]
 ```
-
 **Advantages:**
 - No hard-coded paths.
 
@@ -151,12 +148,11 @@ return cands_sorted[0]
 - More robust and portable.
 
 ## 2. Feature Engineering Philosophy
+
 *kernelMedian-heavy aggregation → structured rolling feature system*
 
 ### 1st solution_public (Before)
-
 date processing + multiple window sizes + custom `kernelMedian` weighting
-
 example:
 
 ```python
@@ -178,6 +174,7 @@ return df
 
 ### catboost-lbsm (After)
 Centralized feature factory:
+
 ```python
 
 def make_feats(end_date, n_day):
@@ -215,7 +212,6 @@ for i in  range(58):
 train_feat_sub =  make_feats(date_add_days(start_date, i *  (-7)),  39)
 train_feat = pd.concat([train_feat, train_feat_sub])
 ```
-
 **Advantages:**
 
 - Clear feature taxonomy.
@@ -225,9 +221,11 @@ train_feat = pd.concat([train_feat, train_feat_sub])
 - Match proven 1st-place competition structure.
 
 ## 3. Reserve Feature Handling
+
 *Implicit reshaping → explicit aggregations*
 
 ### catboost-lbsm Example
+
 ```python
 air_result =  (
 
@@ -243,7 +241,6 @@ air_reserve_count=("reserve_visitors",  "count"),
 
 )
 ```
-
 **Advantages:**
 - More stable than `unstack/stack`.
 
@@ -252,6 +249,7 @@ air_reserve_count=("reserve_visitors",  "count"),
 - Fewer silent alignment bugs.
 
 ## 4. Training Strategy
+
 *Single LGBM with KFold → LGBM + CatBoost ensemble*
 
 ### 1st solution (Before)
@@ -264,9 +262,6 @@ air_reserve_count=("reserve_visitors",  "count"),
 - Long training cycles
 
 ### catboost-lbsm (After)
-
-  
-
 **LightGBM**
 
 ```python
@@ -284,7 +279,7 @@ num_boost_round=2300
 
 **CatBoost**
 
-```
+```python
 
 cb = CatBoostRegressor(
 
@@ -307,13 +302,12 @@ cb.fit(X_train, y_train)
 
 **Log-space Ensembling**
 
-```
+```python
 
 pred_ens_log = 0.65 * pred_lgb + 0.35 * pred_cb
 
 visitors = np.expm1(pred_ens_log)
 ```
-
 **Advantages:**
 - Capture complementary inductive biases.
 
@@ -322,8 +316,10 @@ visitors = np.expm1(pred_ens_log)
 - Easy to tune ensemble weights.
 
 ## 5. Output Engineering
+
 *Fixed filenames → timestamped submissions*
-```
+
+```python
 
 out_name = (
 
@@ -333,7 +329,6 @@ f"{pd.Timestamp.now().strftime('%Y%m%d_%H%M%S')}.csv"
 
 )
 ```
-
 **Advantages:**
 
 - No accidental overwrites.
@@ -343,7 +338,5 @@ f"{pd.Timestamp.now().strftime('%Y%m%d_%H%M%S')}.csv"
 ## 📝 Notice
 
 - The feature engineering process requires a large amount of computation, and it is recommended to run it on a machine with at least 16GB of memory.
-
-  
 
 - Hyperparameters such as increasing the number of rounds, learning rate, and ensemble weights can be further optimized to achieve better performance.
