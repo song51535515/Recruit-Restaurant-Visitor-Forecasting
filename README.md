@@ -30,9 +30,9 @@ This version is designed to be **engineering-friendly, extensible, and competiti
 
 - Use a 1st-place–style rolling feature framework.
 
-- Train two different tree models: **LightGBM(0.65)** and **CatBoost(0.35)**.
+- Train two different tree models: **LightGBM** and **CatBoost**.
 
-- Perform **log-space weighted ensembling**.
+- Perform **log-space weighted ensembling**(with LightGBM for 0.65 and CatBoost for 0.35).
 
 - Produces timestamped submission files.
 
