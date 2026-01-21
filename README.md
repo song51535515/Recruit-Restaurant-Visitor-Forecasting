@@ -4,7 +4,7 @@ This project implements an ensemble solution (LightGBM + CatBoost) for the [Recr
 
 ## 📋Project Overview
 ### 1st solution ([Original File](https://www.kaggle.com/code/plantsgo/solution-public-0-471-private-0-505))
-The performance is evaluated using the root mean squared logarithmic error (RMSLE), achieving **0.471** on the public leaderboard and **0.505** on the private leaderboard.
+The performance is evaluated using the root mean squared logarithmic error (RMSLE), achieving **0.471** on the public leaderboard and **0.505** on the private leaderboard (The Kaggle competition has ended, and this is the score obtained after reproducing and submitting Kaggle in one's own environment).
 
 - Use `air_visit_data` as the core signal.
 
@@ -18,7 +18,7 @@ The performance is evaluated using the root mean squared logarithmic error (RMSL
 
 - Output a submission file whose name includes CV score information.
 
-This version closely follows early high-ranking public kernels, but is **hard to maintain and reuse**.
+This version closely follows early high-ranking public kernels, but is **hard to maintain and reuse**. The code has the strong dependence on fixed data paths and training procedures, the tight coupling between feature engineering and model training, and the heavy use of complex inline aggregations and custom kernel functions, which together reduce code readability, reproducibility, and extensibility.
 
 ### catboost-lbsm (Updated Version)
 
@@ -30,7 +30,7 @@ This version is designed to be **engineering-friendly, extensible, and competiti
 
 - Use a 1st-place–style rolling feature framework.
 
-- Train two different tree models: **LightGBM** and **CatBoost**.
+- Train two different tree models: **LightGBM(0.65)** and **CatBoost(0.35)**.
 
 - Perform **log-space weighted ensembling**.
 
